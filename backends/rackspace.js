@@ -22,7 +22,6 @@ function RackspaceBackend(startupTime, config, stats){
   this.lastFlush = startupTime;
   this.lastException = startupTime;
   this.config = config.rax || {};
-  this.filename = path.join(this.config.outputDir, startupTime + ".json");
 
   this.statsCache = {
     counters: {},
@@ -126,7 +125,7 @@ RackspaceBackend.prototype.flush = function(timestamp, metrics) {
 
   console.log('flushing stats to disk');
 
-  fs.appendFileSync(self.filename, JSON.stringify(out) + '\n');
+  fs.appendFileSync((new Date()).getTime().toString() + '.json', JSON.stringify(out) + '\n');
   self.lastFlush = timestamp;
   self.clearMetrics(metrics);
 
