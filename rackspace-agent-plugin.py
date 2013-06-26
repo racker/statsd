@@ -24,7 +24,6 @@ def output_metrics(metrics):
     # TODO these need to work for a few different types
     for metric_type in ("counters","timers","gauges"):
         metric = metrics.get(metric_type)
-	#print metric
         if metric is None:
             continue
         for name, val in ((k, v) for k, v in metric.iteritems() if not k.startswith('statsd.')):
@@ -43,7 +42,7 @@ def parse_file(file_path, offset=0):
     with open(file_path, 'rb') as fd:
         fd.seek(offset)
         data = fd.read()
-        for line in data.split("\n"):
+	for line in data.split("\n"):
             if line:
                 output_metrics(json.loads(line))
 
@@ -62,13 +61,16 @@ def main():
     files = glob.glob(os.path.join(watch_dir, '[0-9]*.json'))
     output_check_status('200 OK')
     currentFile = find_latest_flush(files)
-    relpath = os.path.relpath(currentFike, watch_dir)
-    parse_file(file_path)
-    
+    #relpath = os.path.relpath(currentFile, watch_dir)
+    parse_file(currentFile)
+    os.remove(currentFile); 
     """for file_path in files:
         relpath = os.path.relpath(file_path, watch_dir)
         state[relpath] = parse_file(file_path, state.get(relpath, 0))
     print('\n'.join(ck_metrics))
+    """
+    print('\n'.join(ck_metrics))
+    """
     update_state(watch_dir, state_file, state)
     """
 
