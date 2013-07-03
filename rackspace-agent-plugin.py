@@ -63,7 +63,7 @@ def main():
     currentFile = find_latest_flush(files)
     #relpath = os.path.relpath(currentFile, watch_dir)
     parse_file(currentFile)
-    os.remove(currentFile); 
+    #os.remove(currentFile);
     """for file_path in files:
         relpath = os.path.relpath(file_path, watch_dir)
         state[relpath] = parse_file(file_path, state.get(relpath, 0))
