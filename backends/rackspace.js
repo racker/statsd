@@ -21,9 +21,10 @@ function RackspaceBackend(startupTime, config, stats){
 
   this.lastFlush = startupTime;
   this.lastException = startupTime;
-  this.config = config.rax || {};
+  this.config = config.rackspace || {};
   this.outputDir = path.normalize(this.config.outputDir) + '/';
-
+  this.filename = this.outputDir + (new Date()).getTime().toString() + '.json';
+  
   this.statsCache = {
     counters: {},
     timers: {},
@@ -123,8 +124,6 @@ RackspaceBackend.prototype.flush = function(timestamp, metrics) {
 
   delete out.counters['statsd.bad_lines_seen'];
   delete out.counters['statsd.packets_received'];
-
-  var filename = this.outputDir + (new Date()).getTime().toString() + '.json';
 
   console.log('flushing stats to ' + filename);
 
