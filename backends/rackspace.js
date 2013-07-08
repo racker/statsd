@@ -125,9 +125,9 @@ RackspaceBackend.prototype.flush = function(timestamp, metrics) {
   delete out.counters['statsd.bad_lines_seen'];
   delete out.counters['statsd.packets_received'];
 
-  console.log('flushing stats to ' + filename);
+  console.log('flushing stats to ' + self.filename);
 
-  fs.writeFileSync(filename, JSON.stringify(out) + '\n');
+  fs.writeFileSync(self.filename, JSON.stringify(out) + '\n');
   self.lastFlush = timestamp;
   self.clearMetrics(metrics);
 
