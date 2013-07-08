@@ -59,8 +59,7 @@ var post_stats = function graphite_post_stats(statString) {
       graphite.on('connect', function() {
         var ts = Math.round(new Date().getTime() / 1000);
         var ts_suffix = ' ' + ts + "\n";
-        //var namespace = globalNamespace.concat(prefixStats).join(".");
-        var namespace = globalNamespace;
+        var namespace = globalNamespace.concat(prefixStats).join(".");
         statString += namespace + '.graphiteStats.last_exception ' + last_exception + ts_suffix;
         statString += namespace + '.graphiteStats.last_flush '     + last_flush     + ts_suffix;
         statString += namespace + '.graphiteStats.flush_time '     + flush_time     + ts_suffix;
@@ -143,8 +142,7 @@ var flush_stats = function graphite_flush(ts, metrics) {
     numStats += 1;
   }
 
-  //var namespace = globalNamespace.concat(prefixStats);
-  var namespace = globalNamespace;
+  var namespace = globalNamespace.concat(prefixStats);
   if (legacyNamespace === true) {
     statString += prefixStats + '.numStats ' + numStats + ts_suffix;
     statString += 'stats.' + prefixStats + '.graphiteStats.calculationtime ' + (Date.now() - starttime) + ts_suffix;
