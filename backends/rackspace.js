@@ -69,8 +69,7 @@ RackspaceBackend.prototype.clearMetrics = function(metrics) {
 };
 
 RackspaceBackend.prototype.flush = function(timestamp, metrics) {
-  var self = this,
-    out;
+  var self = this, out;
   console.log('caching statsd metrics at', new Date(timestamp * 1000).toString());
   _.each(self.statsCache, function(metric, type) {
     if (!metrics[type]) {
